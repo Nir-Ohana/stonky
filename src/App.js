@@ -132,7 +132,6 @@ const App = () => {
                 loading={loading}
                 rowKey="Symbol"
                 rowClassName={rowClassName}
-                scroll={{ x: 'max-content' }} // Enable horizontal scroll for better responsiveness
             />
         </div>
     );
