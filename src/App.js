@@ -1,42 +1,24 @@
 import React, { useEffect, useState } from 'react';
-import { Table, Spin } from 'antd';
+import { Table } from 'antd';
 import rawData from './stock_analysis_report.json';
 
 const App = () => {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [page, setPage] = useState(1);
-    const [hasMore, setHasMore] = useState(true);
-    const pageSize = 20; // Number of rows to load per scroll
-
-    const fetchData = async (page) => {
-        setLoading(true);
-        try {
-            const nextData = rawData.slice((page - 1) * pageSize, page * pageSize);
-            setData((prevData) => [...prevData, ...nextData]);
-
-            if (nextData.length < pageSize) {
-                setHasMore(false); // If less data was fetched than the page size, we assume there is no more data
-            }
-        } catch (error) {
-            console.error('Error fetching the data', error);
-        } finally {
-            setLoading(false);
-        }
-    };
 
     useEffect(() => {
-        fetchData(page); // Fetch initial data
-    }, [page]);
+        const fetchData = async () => {
+            try {
+                setData(rawData);
+            } catch (error) {
+                console.error('Error fetching the CSV data', error);
+            } finally {
+                setLoading(false);
+            }
+        };
 
-    const handleScroll = (e) => {
-        const { scrollTop, scrollHeight, clientHeight } = e.target;
-
-        if (scrollTop + clientHeight >= scrollHeight - 10 && !loading && hasMore) {
-            // User has scrolled to the bottom, fetch more data
-            setPage((prevPage) => prevPage + 1);
-        }
-    };
+        fetchData();
+    }, []);
 
     const columns = [
         {
@@ -143,21 +125,15 @@ const App = () => {
     };
 
     return (
-        <div style={{ padding: 20, height: '80vh', overflow: 'auto' }} onScroll={handleScroll}>
+        <div style={{ padding: 20 }}>
             <Table
                 dataSource={data}
                 columns={columns}
                 loading={loading}
                 rowKey="Symbol"
                 rowClassName={rowClassName}
-                pagination={false} // Disable pagination
-                scroll={{ x: 'max-content', y: 'calc(100vh - 150px)' }} // Set a max height for scroll
+                scroll={{ x: 'max-content' }} // Enable horizontal scroll for better responsiveness
             />
-            {loading && hasMore && (
-                <div style={{ textAlign: 'center', marginTop: 10 }}>
-                    <Spin />
-                </div>
-            )}
         </div>
     );
 };
