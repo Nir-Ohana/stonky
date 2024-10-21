@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Table } from 'antd';
-import rawData from './stock_analysis_report.json';
 
 const App = () => {
     const [data, setData] = useState([]);
@@ -9,9 +8,14 @@ const App = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
+                const response = await fetch('https://raw.githubusercontent.com/Nir-Ohana/stonky/main/src/stock_analysis_report.json');
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const rawData = await response.json();
                 setData(rawData);
             } catch (error) {
-                console.error('Error fetching the CSV data', error);
+                console.error('Error fetching the JSON data', error);
             } finally {
                 setLoading(false);
             }
@@ -26,7 +30,7 @@ const App = () => {
             dataIndex: 'Company Name',
             key: 'Company Name',
             sorter: (a, b) => a['Company Name'].localeCompare(b['Company Name']),
-            filters: [...new Set(rawData.map(item => item['Company Name']))].map(name => ({ text: name, value: name })),
+            filters: [...new Set(data.map(item => item['Company Name']))].map(name => ({ text: name, value: name })),
             onFilter: (value, record) => record['Company Name'].includes(value),
             render: (text, record) => (
                 <a href={`https://finance.yahoo.com/quote/${record.Symbol}/`} target="_blank" rel="noopener noreferrer">
@@ -39,7 +43,7 @@ const App = () => {
             dataIndex: 'Symbol',
             key: 'Symbol',
             sorter: (a, b) => a.Symbol.localeCompare(b.Symbol),
-            filters: [...new Set(rawData.map(item => item.Symbol))].map(symbol => ({ text: symbol, value: symbol })),
+            filters: [...new Set(data.map(item => item.Symbol))].map(symbol => ({ text: symbol, value: symbol })),
             onFilter: (value, record) => record.Symbol.includes(value)
         },
         {
@@ -107,7 +111,7 @@ const App = () => {
             dataIndex: 'Stock Sentiment',
             key: 'Stock Sentiment',
             sorter: (a, b) => a['Stock Sentiment'].localeCompare(b['Stock Sentiment']),
-            filters: [...new Set(rawData.map(item => item['Stock Sentiment']))].map(sentiment => ({ text: sentiment, value: sentiment })),
+            filters: [...new Set(data.map(item => item['Stock Sentiment']))].map(sentiment => ({ text: sentiment, value: sentiment })),
             onFilter: (value, record) => record['Stock Sentiment'].includes(value)
         },
         {
@@ -115,7 +119,7 @@ const App = () => {
             dataIndex: 'Row Color',
             key: 'Row Color',
             sorter: (a, b) => a['Row Color'].localeCompare(b['Row Color']),
-            filters: [...new Set(rawData.map(item => item['Row Color']))].map(color => ({ text: color, value: color })),
+            filters: [...new Set(data.map(item => item['Row Color']))].map(color => ({ text: color, value: color })),
             onFilter: (value, record) => record['Row Color'].includes(value)
         },
     ];
@@ -126,13 +130,7 @@ const App = () => {
 
     return (
         <div style={{ padding: 20 }}>
-            <Table
-                dataSource={data}
-                columns={columns}
-                loading={loading}
-                rowKey="Symbol"
-                rowClassName={rowClassName}
-            />
+            <Table dataSource={data} columns={columns} loading={loading} rowKey="Symbol" rowClassName={rowClassName} />
         </div>
     );
 };
