@@ -130,7 +130,7 @@ const App = () => {
 
     return (
         <div style={{ padding: 20 }}>
-            <Table dataSource={data} columns={columns} loading={loading} rowKey="Symbol" rowClassName={rowClassName} />
+            <Table dataSource={data} columns={columns} loading={loading} rowKey="Symbol" rowClassName={rowClassName} pagination={false} />
         </div>
     );
 };
