@@ -9,7 +9,9 @@ const App = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch('https://raw.githubusercontent.com/Nir-Ohana/stonky/main/src/stock_analysis_report.json');
+                const response = await fetch('https://raw.githubusercontent.com/Nir-Ohana/stonky/main/src/stock_analysis_report.json', {
+                cache: 'no-store', // Ensure that the response is not cached
+            });
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
