@@ -110,6 +110,29 @@ const App = () => {
             sorter: (a, b) => new Date(a['Earning Date']) - new Date(b['Earning Date'])
         },
         {
+        title: 'Earning Time',
+        dataIndex: 'Earning Time',
+        key: 'Earning Time',
+        sorter: (a, b) => a['Earning Time'].localeCompare(b['Earning Time']),
+        filters: [...new Set(data.map(item => item['Earning Time']))].map(time => ({ text: time, value: time })),
+        onFilter: (value, record) => record['Earning Time'] === value
+        },
+        {
+        title: 'Earning Day of Week',
+        dataIndex: 'Earning Day of Week',
+        key: 'Earning Day of Week',
+        sorter: (a, b) => a['Earning Day of Week'].localeCompare(b['Earning Day of Week']),
+        filters: [...new Set(data.map(item => item['Earning Day of Week']))].map(day => ({ text: day, value: day })),
+        onFilter: (value, record) => record['Earning Day of Week'] === value
+        },
+        {
+        title: 'PE Ratio',
+        dataIndex: 'PE Ratio',
+        key: 'PE Ratio',
+        sorter: (a, b) => a['PE Ratio'] - b['PE Ratio'],
+        render: (value) => value.toFixed(2)
+        },
+        {
             title: 'Stock Sentiment',
             dataIndex: 'Stock Sentiment',
             key: 'Stock Sentiment',
