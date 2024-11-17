@@ -163,7 +163,7 @@ const App = () => {
             }
             return value; // For example: "N/A"
             }
-        }
+        },
         {
             title: 'Stock Sentiment',
             dataIndex: 'Stock Sentiment',
