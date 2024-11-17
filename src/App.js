@@ -10,7 +10,7 @@ const App = () => {
         const fetchData = async () => {
             try {
                 const response = await fetch('https://raw.githubusercontent.com/Nir-Ohana/stonky/main/src/stock_analysis_report.json', {
-                cache: 'no-store', // Ensure that the response is not cached
+                cache: 'no-store', 
             });
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
@@ -132,6 +132,38 @@ const App = () => {
         sorter: (a, b) => a['PE Ratio'] - b['PE Ratio'],
         render: (value) => value.toFixed(2)
         },
+        {
+        title: 'ROE',
+        dataIndex: 'ROE',
+        key: 'ROE',
+        sorter: (a, b) => {
+            const valA = typeof a['ROE'] === 'number' ? a['ROE'] : -Infinity;
+            const valB = typeof b['ROE'] === 'number' ? b['ROE'] : -Infinity;
+            return valA - valB;
+        },
+        render: (value) => {
+            if (typeof value === 'number') {
+                return `${(value * 100).toFixed(2)}%`;
+            }
+            return value; // For example: "N/A"
+            }
+        },
+        {
+        title: 'DTE',
+        dataIndex: 'DTE',
+        key: 'DTE',
+        sorter: (a, b) => {
+            const valA = typeof a['DTE'] === 'number' ? a['DTE'] : -Infinity;
+            const valB = typeof b['DTE'] === 'number' ? b['DTE'] : -Infinity;
+            return valA - valB;
+        },
+        render: (value) => {
+            if (typeof value === 'number') {
+                return value.toFixed(2);
+            }
+            return value; // For example: "N/A"
+            }
+        }
         {
             title: 'Stock Sentiment',
             dataIndex: 'Stock Sentiment',
