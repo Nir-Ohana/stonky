@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Table, Spin } from 'antd';
 
-const POLLING_INTERVAL = 10000;
+const POLLING_INTERVAL = 30000;
 
 const App = () => {
     const [data, setData] = useState([]);
