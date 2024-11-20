@@ -102,8 +102,7 @@ const App = () => {
             title: 'Change from Last Report',
             dataIndex: 'Change from Last Report',
             key: 'Change from Last Report',
-            sorter: (a, b) => a['Change from Last Report'] - b['Change from Last Report'],
-            render: (value) => `${value.toFixed(2)}%`
+            sorter: (a, b) => a['Change from Last Report'] - b['Change from Last Report']
         },
         {
             title: 'Latest Volume',
