@@ -121,7 +121,9 @@ const App = () => {
             title: 'Earning Date',
             dataIndex: 'Earning Date',
             key: 'Earning Date',
-            sorter: (a, b) => new Date(a['Earning Date']) - new Date(b['Earning Date'])
+            sorter: (a, b) => new Date(a['Earning Date']) - new Date(b['Earning Date']),
+            filters: [...new Set(data.map(item => item['Earning Date']))].map(date => ({ text: date, value: date })),
+            onFilter: (value, record) => record['Earning Date'] === value
         },
         {
         title: 'Earning Time',
