@@ -13,8 +13,8 @@ const App = () => {
         const fetchData = async () => {
             setLoading(true);
             try {
-                const response = await fetch('https://raw.githubusercontent.com/Nir-Ohana/stonky/main/src/stock_analysis_report.json', {
-                    cache: 'no-store',
+                const response = await fetch(`https://raw.githubusercontent.com/Nir-Ohana/stonky/main/src/stock_analysis_report.json?t=${Date.now()}`, {
+                cache: 'no-store',
                 });
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
