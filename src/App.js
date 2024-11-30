@@ -202,10 +202,17 @@ const App = () => {
         return record['Row Color'] === 'positive-row' ? 'positive-row' : record['Row Color'] === 'negative-row' ? 'negative-row' : '';
     };
 
+    const lastUpdated = data.length > 0 ? data[0]['Last Updated'] : null;
+
     return (
         <Spin spinning={loading} tip="Loading data...">
             <div style={{ padding: 20 }}>
                 <Table dataSource={data} columns={columns} loading={loading} rowKey="Symbol" rowClassName={rowClassName} pagination={false} />
+                {lastUpdated && (
+                    <div style={{ marginTop: 20, textAlign: 'right', fontStyle: 'italic' }}>
+                        Last Updated: {lastUpdated}
+                    </div>
+                )}
             </div>
         </Spin>
     );
