@@ -8,36 +8,45 @@ const App = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        let intervalId;
+    let intervalId;
 
-        const fetchData = async () => {
-            setLoading(true);
-            try {
-                const response = await fetch(`https://raw.githubusercontent.com/Nir-Ohana/stonky/main/src/stock_analysis_report.json?t=${Date.now()}`, {
-                cache: 'no-store',
-                });
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
+    const fetchData = async () => {
+        setLoading(true);
+        try {
+            const response = await fetch(
+                'https://api.github.com/repos/Nir-Ohana/stonky/contents/src/stock_analysis_report.json',
+                {
+                    headers: {
+                        Accept: 'application/vnd.github.v3+json',
+                    },
                 }
-                const rawData = await response.json();
-                setData(rawData);
-            } catch (error) {
-                console.error('Error fetching the JSON data', error);
-            } finally {
-                setLoading(false);
+            );
+
+            if (!response.ok) {
+                throw new Error(`Network response was not ok: ${response.status}`);
             }
-        };
 
+            const data = await response.json();
+            // Decode the base64 content and parse JSON
+            const decodedData = JSON.parse(atob(data.content));
+            setData(decodedData);
+        } catch (error) {
+            console.error('Error fetching the JSON data:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    fetchData();
+
+    intervalId = setInterval(() => {
         fetchData();
+    }, POLLING_INTERVAL);
 
-        intervalId = setInterval(() => {
-            fetchData();
-        }, POLLING_INTERVAL);
-        
-        return () => {
-            clearInterval(intervalId);
-        };
-    }, []);
+    return () => {
+        clearInterval(intervalId);
+    };
+}, []);
     
     const columns = [
         {
