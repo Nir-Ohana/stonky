@@ -207,12 +207,12 @@ const App = () => {
     return (
         <Spin spinning={loading} tip="Loading data...">
             <div style={{ padding: 20 }}>
-                <Table dataSource={data} columns={columns} loading={loading} rowKey="Symbol" rowClassName={rowClassName} pagination={false} />
                 {lastUpdated && (
                     <div style={{ marginTop: 20, textAlign: 'right', fontStyle: 'italic' }}>
                         Last Updated: {lastUpdated}
                     </div>
                 )}
+                <Table dataSource={data} columns={columns} loading={loading} rowKey="Symbol" rowClassName={rowClassName} pagination={false} />
             </div>
         </Spin>
     );
