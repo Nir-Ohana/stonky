@@ -208,7 +208,7 @@ const App = () => {
         <Spin spinning={loading} tip="Loading data...">
             <div style={{ padding: 20 }}>
                 {lastUpdated && (
-                    <div style={{ marginTop: 20, textAlign: 'right', fontStyle: 'italic' }}>
+                    <div style={{ marginTop: 20, textAlign: 'left', fontStyle: 'italic' }}>
                         Last Updated: {lastUpdated}
                     </div>
                 )}
