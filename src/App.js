@@ -220,7 +220,7 @@ const App = () => {
                         Last Updated: {lastUpdated}
                     </div>
                 )}
-                <Table dataSource={data} columns={columns} loading={loading} rowKey="Symbol" rowClassName={rowClassName} pagination={false} />
+                <Table dataSource={data} columns={columns} loading={loading} rowKey="Symbol" rowClassName={rowClassName} pagination={false} showSorterTooltip={false}/>
             </div>
         </Spin>
     );
