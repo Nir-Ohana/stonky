@@ -60,9 +60,11 @@ const App = () => {
             filters: [...new Set(data.map(item => item['Company Name']))].map(name => ({ text: name, value: name })),
             onFilter: (value, record) => record['Company Name'].includes(value),
             render: (text, record) => (
-                <a href={`https://finance.yahoo.com/quote/${record.Symbol}/`} target="_blank" rel="noopener noreferrer">
-                    {text}
-                </a>
+                <Tooltip title={`Information about ${record['Company Name']}`}>
+                    <a href={`https://finance.yahoo.com/quote/${record.Symbol}/`} target="_blank" rel="noopener noreferrer">
+                        {text}
+                    </a>
+                </Tooltip>
             )
         },
         {
