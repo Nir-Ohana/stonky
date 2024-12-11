@@ -59,13 +59,23 @@ const App = () => {
             sorter: (a, b) => a['Company Name'].localeCompare(b['Company Name']),
             filters: [...new Set(data.map(item => item['Company Name']))].map(name => ({ text: name, value: name })),
             onFilter: (value, record) => record['Company Name'].includes(value),
-            render: (text, record) => (
-                <Tooltip title={`Information about ${record['Company Name']}`}>
-                    <a href={`https://finance.yahoo.com/quote/${record.Symbol}/`} target="_blank" rel="noopener noreferrer">
+            render: (text, record) => {
+            const summary = record['Company Summary'] || 'No summary available';
+            const firstSentenceMatch = summary.match(/^(.*?(\.|$))(?!\s+[A-Z])/);
+            const firstSentence = firstSentenceMatch ? firstSentenceMatch[0] : 'No summary available';
+
+            return (
+                <Tooltip title={firstSentence}>
+                    <a
+                        href={`https://finance.yahoo.com/quote/${record.Symbol}/`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
                         {text}
                     </a>
                 </Tooltip>
-            )
+            );
+}
         },
         {
             title: (
