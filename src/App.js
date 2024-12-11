@@ -47,6 +47,17 @@ const App = () => {
         };
     }, []);
 
+    const extractFirstParagraph = (summary) => {
+        if (!summary) return '';
+        if (summary.includes(' Inc.')) {
+            const match = summary.match(/^(.*?\..*?\.\s)/); // Match up to the second period if "Inc." is present
+            return match ? match[0].trim() : summary;
+        } else {
+            const match = summary.match(/^(.*?\.\s)/); // Match up to the first period otherwise
+            return match ? match[0].trim() : summary;
+        }
+    };
+    
     const columns = [
         {
             title: (
@@ -60,12 +71,9 @@ const App = () => {
             filters: [...new Set(data.map(item => item['Company Name']))].map(name => ({ text: name, value: name })),
             onFilter: (value, record) => record['Company Name'].includes(value),
             render: (text, record) => {
-            const summary = record['Company Summary'] || 'No summary available';
-            const firstSentenceMatch = summary.match(/^(.*?(\.|$))(?!\s+[A-Z])/);
-            const firstSentence = firstSentenceMatch ? firstSentenceMatch[0] : 'No summary available';
 
             return (
-                <Tooltip title={firstSentence}>
+                <Tooltip title={extractFirstParagraph(record['Company Summary'])}>
                     <a
                         href={`https://finance.yahoo.com/quote/${record.Symbol}/`}
                         target="_blank"
