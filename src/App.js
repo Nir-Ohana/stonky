@@ -9,6 +9,11 @@ const App = () => {
     const [loading, setLoading] = useState(true);
     const [visibleColumns, setVisibleColumns] = useState([]);
 
+    // Initialize visible columns
+    useEffect(() => {
+        setVisibleColumns(columns.map(col => col.key || col.dataIndex));
+    }, [columns]);
+    
     useEffect(() => {
         let intervalId;
 
@@ -313,11 +318,6 @@ const App = () => {
     };
 
     const lastUpdated = data.length > 0 ? data[0]['Last Updated'] : null;
-
-    // Initialize visible columns
-    useEffect(() => {
-        setVisibleColumns(columns.map(col => col.key || col.dataIndex));
-    }, [columns]);
 
     const filteredColumns = columns.filter(col => {
             const columnKey = col.key || col.dataIndex;
