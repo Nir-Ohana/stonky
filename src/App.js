@@ -179,12 +179,12 @@ const App = () => {
         {
             title: (
                 <Tooltip title="Ratio between current volume and average volume">
-                    <div style={{ width: '100%' }}>Vs Average</div>
+                    <div style={{ width: '100%' }}>VS Average</div>
                 </Tooltip>
             ),
-            dataIndex: 'Vs Average Volume',
-            key: 'Vs Average Volume',
-            sorter: (a, b) => a['Vs Average Volume'] - b['Vs Average Volume'],
+            dataIndex: 'VS Average Volume',
+            key: 'VS Average Volume',
+            sorter: (a, b) => a['VS Average Volume'] - b['VS Average Volume'],
             render: (value) => `${parseFloat(value * 100).toFixed(2)}%`
         },
         {
