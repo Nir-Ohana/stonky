@@ -12,7 +12,7 @@ const App = () => {
     // Initialize visible columns
     useEffect(() => {
         setVisibleColumns(columns.map(col => col.key || col.dataIndex));
-    }, [columns]);
+    }, []);
     
     useEffect(() => {
         let intervalId;
