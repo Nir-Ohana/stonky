@@ -319,9 +319,10 @@ const App = () => {
         setVisibleColumns(columns.map(col => col.key || col.dataIndex));
     }, [columns]);
 
-    const filteredColumns = columns.filter(col =>
-        visibleColumns.includes(col.key || col.dataIndex)
-    );
+    const filteredColumns = columns.filter(col => {
+            const columnKey = col.key || col.dataIndex;
+            return visibleColumns.includes(columnKey);
+    });
 
     const handleColumnChange = (checkedValues) => {
         setVisibleColumns(checkedValues);
