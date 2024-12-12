@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { Table, Spin, Tooltip } from 'antd';
+import { Table, Spin, Tooltip, Checkbox, Dropdown, Button, Menu } from 'antd';
+import { DownOutlined } from '@ant-design/icons';
 
 const POLLING_INTERVAL = 30000;
 
 const App = () => {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [visibleColumns, setVisibleColumns] = useState([]);
 
     useEffect(() => {
         let intervalId;
@@ -50,10 +52,10 @@ const App = () => {
     const extractFirstParagraph = (summary) => {
         if (!summary) return '';
         if (summary.includes(' Inc.')) {
-            const match = summary.match(/^(.*?\..*?\.\s)/); // Match up to the second period if "Inc." is present
+            const match = summary.match(/^(.*?\..*?\.\s)/);
             return match ? match[0].trim() : summary;
         } else {
-            const match = summary.match(/^(.*?\.\s)/); // Match up to the first period otherwise
+            const match = summary.match(/^(.*?\.\s)/);
             return match ? match[0].trim() : summary;
         }
     };
@@ -302,11 +304,44 @@ const App = () => {
         },
     ];
 
-    const rowClassName = (record) => {
-        return record['Row Color'] === 'positive-row' ? 'positive-row' : record['Row Color'] === 'negative-row' ? 'negative-row' : '';
+     const rowClassName = (record) => {
+        return record['Row Color'] === 'positive-row'
+            ? 'positive-row'
+            : record['Row Color'] === 'negative-row'
+            ? 'negative-row'
+            : '';
     };
 
     const lastUpdated = data.length > 0 ? data[0]['Last Updated'] : null;
+
+    // Initialize visible columns
+    useEffect(() => {
+        setVisibleColumns(columns.map(col => col.key || col.dataIndex));
+    }, [columns]);
+
+    const filteredColumns = columns.filter(col =>
+        visibleColumns.includes(col.key || col.dataIndex)
+    );
+
+    const handleColumnChange = (checkedValues) => {
+        setVisibleColumns(checkedValues);
+    };
+
+    const menu = (
+        <Menu>
+            <Checkbox.Group
+                value={visibleColumns}
+                onChange={handleColumnChange}
+                style={{ padding: '10px' }}
+            >
+                {columns.map(col => (
+                    <Checkbox key={col.key || col.dataIndex} value={col.key || col.dataIndex}>
+                        {col.title.props.children}
+                    </Checkbox>
+                ))}
+            </Checkbox.Group>
+        </Menu>
+    );
 
     return (
         <Spin spinning={loading} tip="Loading data...">
@@ -316,7 +351,22 @@ const App = () => {
                         Last Updated: {lastUpdated}
                     </div>
                 )}
-                <Table dataSource={data} columns={columns} loading={loading} rowKey="Symbol" rowClassName={rowClassName} pagination={false} showSorterTooltip={false} />
+                <div style={{ marginBottom: 10, textAlign: 'right' }}>
+                    <Dropdown overlay={menu} trigger={['click']}>
+                        <Button>
+                            Toggle Columns <DownOutlined />
+                        </Button>
+                    </Dropdown>
+                </div>
+                <Table
+                    dataSource={data}
+                    columns={filteredColumns}
+                    loading={loading}
+                    rowKey="Symbol"
+                    rowClassName={rowClassName}
+                    pagination={false}
+                    showSorterTooltip={false}
+                />
             </div>
         </Spin>
     );
