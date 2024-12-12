@@ -184,8 +184,7 @@ const App = () => {
             ),
             dataIndex: 'Vs Average Volume',
             key: 'Vs Average Volume',
-            sorter: (a, b) => a['Vs Average Volume'] - b['Vs Average Volume'],
-            render: (value) => `${parseFloat(value).toFixed(2)}%`
+            sorter: (a, b) => a['Vs Average Volume'] - b['Vs Average Volume']
         },
         {
             title: (
