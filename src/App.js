@@ -106,6 +106,16 @@ const App = () => {
         },
         {
             title: (
+                <Tooltip title="Difference from moving average">
+                    <div style={{ width: '100%' }}>Difference from MA</div>
+                </Tooltip>
+            ),
+            dataIndex: 'Difference from MA',
+            key: 'Difference from MA',
+            sorter: (a, b) => parseFloat(a['Difference from MA'].replace('%', '')) - parseFloat(b['Difference from MA'].replace('%', ''))
+        },
+        {
+            title: (
                 <Tooltip title="The current stock price">
                     <div style={{ width: '100%' }}>Current Price</div>
                 </Tooltip>
@@ -116,16 +126,6 @@ const App = () => {
         },
         {
             title: (
-                <Tooltip title="The latest moving average">
-                    <div style={{ width: '100%' }}>Latest MA</div>
-                </Tooltip>
-            ),
-            dataIndex: 'Latest MA',
-            key: 'Latest MA',
-            sorter: (a, b) => a['Latest MA'] - b['Latest MA']
-        },
-        {
-            title: (
                 <Tooltip title="The target price">
                     <div style={{ width: '100%' }}>Price Target</div>
                 </Tooltip>
@@ -133,16 +133,6 @@ const App = () => {
             dataIndex: 'Price Target',
             key: 'Price Target',
             sorter: (a, b) => a['Price Target'] - b['Price Target']
-        },
-        {
-            title: (
-                <Tooltip title="Difference from moving average">
-                    <div style={{ width: '100%' }}>Difference from MA</div>
-                </Tooltip>
-            ),
-            dataIndex: 'Difference from MA',
-            key: 'Difference from MA',
-            sorter: (a, b) => parseFloat(a['Difference from MA'].replace('%', '')) - parseFloat(b['Difference from MA'].replace('%', ''))
         },
         {
             title: (
