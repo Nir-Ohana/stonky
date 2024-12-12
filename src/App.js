@@ -179,7 +179,7 @@ const App = () => {
         {
             title: (
                 <Tooltip title="Ratio between current volume and average volume">
-                    <div style={{ width: '100%' }}>VS Average</div>
+                    <div style={{ width: '100%' }}>VS Average Volume</div>
                 </Tooltip>
             ),
             dataIndex: 'VS Average Volume',
