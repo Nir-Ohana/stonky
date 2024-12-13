@@ -157,23 +157,47 @@ const App = () => {
         },
         {
             title: (
-                <Tooltip title="The day's low">
-                    <div style={{ width: '100%' }}>Day Low Price</div>
+                <Tooltip title="Difference between the current price and the day's low as a percentage">
+                    <div style={{ width: '100%' }}>Difference from Day Low (%)</div>
                 </Tooltip>
             ),
-            dataIndex: 'Day Low',
-            key: 'Day Low',
-            sorter: (a, b) => a['Day Low'] - b['Day Low']
+            key: 'Difference from Day Low (%)',
+            render: (record) => {
+                const currentPrice = parseFloat(record['Current Price']);
+                const dayLow = parseFloat(record['Day Low']);
+                if (!isNaN(currentPrice) && !isNaN(dayLow) && dayLow !== 0) {
+                    const percentage = ((currentPrice - dayLow) / dayLow) * 100;
+                    return `${percentage.toFixed(2)}%`;
+                }
+                return 'N/A';
+            },
+            sorter: (a, b) => {
+                const diffA = ((parseFloat(a['Current Price']) - parseFloat(a['Day Low'])) / parseFloat(a['Day Low'])) * 100;
+                const diffB = ((parseFloat(b['Current Price']) - parseFloat(b['Day Low'])) / parseFloat(b['Day Low'])) * 100;
+                return isNaN(diffA) ? 1 : isNaN(diffB) ? -1 : diffA - diffB;
+            }
         },
         {
             title: (
-                <Tooltip title="The day's high">
-                    <div style={{ width: '100%' }}>Day High Price</div>
+                <Tooltip title="Difference between the current price and the day's high as a percentage">
+                    <div style={{ width: '100%' }}>Difference from Day High (%)</div>
                 </Tooltip>
             ),
-            dataIndex: 'Day High',
-            key: 'Day High',
-            sorter: (a, b) => a['Day High'] - b['Day High']
+            key: 'Difference from Day High (%)',
+            render: (record) => {
+                const currentPrice = parseFloat(record['Current Price']);
+                const dayHigh = parseFloat(record['Day High']);
+                if (!isNaN(currentPrice) && !isNaN(dayHigh) && dayHigh !== 0) {
+                    const percentage = ((currentPrice - dayHigh) / dayHigh) * 100;
+                    return `${percentage.toFixed(2)}%`;
+                }
+                return 'N/A';
+            },
+            sorter: (a, b) => {
+                const diffA = ((parseFloat(a['Current Price']) - parseFloat(a['Day High'])) / parseFloat(a['Day High'])) * 100;
+                const diffB = ((parseFloat(b['Current Price']) - parseFloat(b['Day High'])) / parseFloat(b['Day High'])) * 100;
+                return isNaN(diffA) ? 1 : isNaN(diffB) ? -1 : diffA - diffB;
+            }
         },
         {
             title: (
