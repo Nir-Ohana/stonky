@@ -9,11 +9,21 @@ const App = () => {
     const [loading, setLoading] = useState(true);
     const [visibleColumns, setVisibleColumns] = useState([]);
 
-    // Initialize visible columns
+    // Initialize visible columns from localStorage or default to all columns
     useEffect(() => {
-        setVisibleColumns(columns.map(col => col.key || col.dataIndex));
+        const savedColumns = localStorage.getItem('visibleColumns');
+        if (savedColumns) {
+            setVisibleColumns(JSON.parse(savedColumns));
+        } else {
+            setVisibleColumns(columns.map(col => col.key || col.dataIndex));
+        }
     }, []);
-    
+
+    // Update localStorage whenever visibleColumns changes
+    useEffect(() => {
+        localStorage.setItem('visibleColumns', JSON.stringify(visibleColumns));
+    }, [visibleColumns]);
+
     useEffect(() => {
         let intervalId;
 
@@ -64,7 +74,7 @@ const App = () => {
             return match ? match[0].trim() : summary;
         }
     };
-    
+
     const columns = [
         {
             title: (
@@ -77,9 +87,7 @@ const App = () => {
             sorter: (a, b) => a['Company Name'].localeCompare(b['Company Name']),
             filters: [...new Set(data.map(item => item['Company Name']))].map(name => ({ text: name, value: name })),
             onFilter: (value, record) => record['Company Name'].includes(value),
-            render: (text, record) => {
-
-            return (
+            render: (text, record) => (
                 <Tooltip title={extractFirstParagraph(record['Company Summary'])}>
                     <a
                         href={`https://finance.yahoo.com/quote/${record.Symbol}/`}
@@ -89,8 +97,7 @@ const App = () => {
                         {text}
                     </a>
                 </Tooltip>
-            );
-}
+            )
         },
         {
             title: (
@@ -307,10 +314,10 @@ const App = () => {
             sorter: (a, b) => a['Row Color'].localeCompare(b['Row Color']),
             filters: [...new Set(data.map(item => item['Row Color']))].map(color => ({ text: color, value: color })),
             onFilter: (value, record) => record['Row Color'].includes(value)
-        },
+         },
     ];
 
-     const rowClassName = (record) => {
+    const rowClassName = (record) => {
         return record['Row Color'] === 'positive-row'
             ? 'positive-row'
             : record['Row Color'] === 'negative-row'
@@ -321,8 +328,8 @@ const App = () => {
     const lastUpdated = data.length > 0 ? data[0]['Last Updated'] : null;
 
     const filteredColumns = columns.filter(col => {
-            const columnKey = col.key || col.dataIndex;
-            return visibleColumns.includes(columnKey);
+        const columnKey = col.key || col.dataIndex;
+        return visibleColumns.includes(columnKey);
     });
 
     const handleColumnChange = (checkedValues) => {
