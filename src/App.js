@@ -328,7 +328,9 @@ const App = () => {
                 if (typeof value === 'number') {
                     return value.toFixed(2);
                 }
-                return value;
+                else {
+                    return 'N/A';
+                }
             }
         },
         {
