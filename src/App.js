@@ -157,6 +157,26 @@ const App = () => {
         },
         {
             title: (
+                <Tooltip title="The day's low">
+                    <div style={{ width: '100%' }}>Days Low Price</div>
+                </Tooltip>
+            ),
+            dataIndex: 'Days Low',
+            key: 'Days Low',
+            sorter: (a, b) => a['Days Low'] - b['Days Low']
+        },
+        {
+            title: (
+                <Tooltip title="The day's high">
+                    <div style={{ width: '100%' }}>Days High Price</div>
+                </Tooltip>
+            ),
+            dataIndex: 'Days High',
+            key: 'Days High',
+            sorter: (a, b) => a['Days High'] - b['Days High']
+        },
+        {
+            title: (
                 <Tooltip title="The target price">
                     <div style={{ width: '100%' }}>Price Target</div>
                 </Tooltip>
