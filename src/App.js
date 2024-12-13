@@ -293,6 +293,39 @@ const App = () => {
         },
         {
             title: (
+                <Tooltip title="Beta ratio">
+                    <div style={{ width: '100%' }}>Beta</div>
+                </Tooltip>
+            ),
+            dataIndex: 'Beta',
+            key: 'Beta',
+            sorter: (a, b) => a['Beta'] - b['Beta'],
+            render: (value) => value.toFixed(2)
+        },
+        {
+            title: (
+                <Tooltip title="Trailing PEG 12 months">
+                    <div style={{ width: '100%' }}>Trailing PEG</div>
+                </Tooltip>
+            ),
+            dataIndex: 'Trailing PEG',
+            key: 'Trailing PEG',
+            sorter: (a, b) => a['Trailing PEG'] - b['Trailing PEG'],
+            render: (value) => value.toFixed(2)
+        },
+        {
+            title: (
+                <Tooltip title="Trailing PS 12 months">
+                    <div style={{ width: '100%' }}>Trailing PS</div>
+                </Tooltip>
+            ),
+            dataIndex: 'Trailing PS',
+            key: 'Trailing PS',
+            sorter: (a, b) => a['Trailing PS'] - b['Trailing PS'],
+            render: (value) => value.toFixed(2)
+        },
+        {
+            title: (
                 <Tooltip title="Overall sentiment towards the stock">
                     <div style={{ width: '100%' }}>Stock Sentiment</div>
                 </Tooltip>
