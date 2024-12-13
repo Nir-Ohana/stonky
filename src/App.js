@@ -319,7 +319,11 @@ const App = () => {
             ),
             dataIndex: 'Trailing PEG',
             key: 'Trailing PEG',
-            sorter: (a, b) => a['Trailing PEG'] - b['Trailing PEG'],
+            sorter: (a, b) => {
+                const valA = typeof a['Trailing PEG'] === 'number' ? a['Trailing PEG'] : -Infinity;
+                const valB = typeof b['Trailing PEG'] === 'number' ? b['Trailing PEG'] : -Infinity;
+                return valA - valB;
+            },
             render: (value) => {
                 if (typeof value === 'number') {
                     return value.toFixed(2);
@@ -340,7 +344,9 @@ const App = () => {
                 if (typeof value === 'number') {
                     return value.toFixed(2);
                 }
-                return value;
+                else {
+                    return 'N/A';
+                }
             }
         },
         {
