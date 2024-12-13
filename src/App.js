@@ -299,7 +299,11 @@ const App = () => {
             ),
             dataIndex: 'Beta',
             key: 'Beta',
-            sorter: (a, b) => a['Beta'] - b['Beta'],
+            sorter: (a, b) => {
+                const valA = typeof a['Beta'] === 'number' ? a['Beta'] : -Infinity;
+                const valB = typeof b['Beta'] === 'number' ? b['Beta'] : -Infinity;
+                return valA - valB;
+            },
             render: (value) => {
                 if (typeof value === 'number') {
                     return value.toFixed(2);
