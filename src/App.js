@@ -218,18 +218,6 @@ const App = () => {
         },
         {
             title: (
-                <Tooltip title="Time of the next earnings report">
-                    <div style={{ width: '100%' }}>Earning Time</div>
-                </Tooltip>
-            ),
-            dataIndex: 'Earning Time',
-            key: 'Earning Time',
-            sorter: (a, b) => a['Earning Time'].localeCompare(b['Earning Time']),
-            filters: [...new Set(data.map(item => item['Earning Time']))].map(time => ({ text: time, value: time })),
-            onFilter: (value, record) => record['Earning Time'] === value
-        },
-        {
-            title: (
                 <Tooltip title="Day of the week for the earnings report">
                     <div style={{ width: '100%' }}>Earning Day of Week</div>
                 </Tooltip>
@@ -239,6 +227,18 @@ const App = () => {
             sorter: (a, b) => a['Earning Day of Week'].localeCompare(b['Earning Day of Week']),
             filters: [...new Set(data.map(item => item['Earning Day of Week']))].map(day => ({ text: day, value: day })),
             onFilter: (value, record) => record['Earning Day of Week'] === value
+        },
+        {
+            title: (
+                <Tooltip title="Time of the next earnings report">
+                    <div style={{ width: '100%' }}>Earning Time</div>
+                </Tooltip>
+            ),
+            dataIndex: 'Earning Time',
+            key: 'Earning Time',
+            sorter: (a, b) => a['Earning Time'].localeCompare(b['Earning Time']),
+            filters: [...new Set(data.map(item => item['Earning Time']))].map(time => ({ text: time, value: time })),
+            onFilter: (value, record) => record['Earning Time'] === value
         },
         {
             title: (
