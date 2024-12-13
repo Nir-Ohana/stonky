@@ -308,9 +308,7 @@ const App = () => {
                 if (typeof value === 'number') {
                     return value.toFixed(2);
                 }
-                else {
-                    return -Infinity
-                }
+                return value;
             }
         },
         {
