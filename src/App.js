@@ -113,6 +113,30 @@ const App = () => {
         },
         {
             title: (
+                <Tooltip title="The Sector">
+                    <div style={{ width: '100%' }}>Sector</div>
+                </Tooltip>
+            ),
+            dataIndex: 'Sector',
+            key: 'Sector',
+            sorter: (a, b) => a.Sector.localeCompare(b.Sector),
+            filters: [...new Set(data.map(item => item.Sector))].map(sector => ({ text: sector, value: sector })),
+            onFilter: (value, record) => record.Sector.includes(value)
+        },
+        {
+            title: (
+                <Tooltip title="The Industry">
+                    <div style={{ width: '100%' }}>Industry</div>
+                </Tooltip>
+            ),
+            dataIndex: 'Industry',
+            key: 'Industry',
+            sorter: (a, b) => a.Industry.localeCompare(b.Industry),
+            filters: [...new Set(data.map(item => item.Industry))].map(industry => ({ text: industry, value: industry })),
+            onFilter: (value, record) => record.Industry.includes(value)
+        },
+        {
+            title: (
                 <Tooltip title="Difference from moving average">
                     <div style={{ width: '100%' }}>Difference from MA</div>
                 </Tooltip>
@@ -342,6 +366,28 @@ const App = () => {
             dataIndex: 'Trailing PS',
             key: 'Trailing PS',
             sorter: (a, b) => a['Trailing PS'] - b['Trailing PS'],
+            render: (value) => {
+                if (typeof value === 'number') {
+                    return value.toFixed(2);
+                }
+                else {
+                    return 'N/A';
+                }
+            }
+        },
+        {
+            title: (
+                <Tooltip title="Quick Ratio">
+                    <div style={{ width: '100%' }}>Quick Ratio</div>
+                </Tooltip>
+            ),
+            dataIndex: 'Quick Ratio',
+            key: 'Quick Ratio',
+            sorter: (a, b) => {
+                const valA = typeof a['Quick Ratio'] === 'number' ? a['Quick Ratio'] : -Infinity;
+                const valB = typeof b['Quick Ratio'] === 'number' ? b['Quick Ratio'] : -Infinity;
+                return valA - valB;
+            },
             render: (value) => {
                 if (typeof value === 'number') {
                     return value.toFixed(2);
