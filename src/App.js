@@ -299,8 +299,7 @@ const App = () => {
             ),
             dataIndex: 'Beta',
             key: 'Beta',
-            sorter: (a, b) => a['Beta'] - b['Beta'],
-            render: (value) => value.toFixed(2)
+            sorter: (a, b) => a['Beta'] - b['Beta']
         },
         {
             title: (
@@ -310,8 +309,7 @@ const App = () => {
             ),
             dataIndex: 'Trailing PEG',
             key: 'Trailing PEG',
-            sorter: (a, b) => a['Trailing PEG'] - b['Trailing PEG'],
-            render: (value) => value.toFixed(2)
+            sorter: (a, b) => a['Trailing PEG'] - b['Trailing PEG']
         },
         {
             title: (
@@ -321,8 +319,7 @@ const App = () => {
             ),
             dataIndex: 'Trailing PS',
             key: 'Trailing PS',
-            sorter: (a, b) => a['Trailing PS'] - b['Trailing PS'],
-            render: (value) => value.toFixed(2)
+            sorter: (a, b) => a['Trailing PS'] - b['Trailing PS']
         },
         {
             title: (
