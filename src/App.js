@@ -293,7 +293,7 @@ const App = () => {
         },
         {
             title: (
-                <Tooltip title="Beta ratio">
+                <Tooltip title="a measure of volatility of a security compared to a market as a whole">
                     <div style={{ width: '100%' }}>Beta</div>
                 </Tooltip>
             ),
@@ -304,7 +304,9 @@ const App = () => {
                 if (typeof value === 'number') {
                     return value.toFixed(2);
                 }
-                return value;
+                else {
+                    return -Infinity
+                }
             }
         },
         {
