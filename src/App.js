@@ -316,8 +316,59 @@ const App = () => {
             ),
             dataIndex: 'PE Ratio',
             key: 'PE Ratio',
-            sorter: (a, b) => a['PE Ratio'] - b['PE Ratio'],
-            render: (value) => value.toFixed(2)
+            sorter: (a, b) => {
+                const valA = typeof a['PE Ratio'] === 'number' ? a['PE Ratio'] : -Infinity;
+                const valB = typeof b['PE Ratio'] === 'number' ? b['PE Ratio'] : -Infinity;
+                return valA - valB;
+            },
+            render: (value) => {
+                if (typeof value === 'number') {
+                    return value.toFixed(2);
+                }
+                else {
+                    return 'N/A';
+                }
+            }
+        },
+        {
+            title: (
+                <Tooltip title="Trailing PEG 12 months">
+                    <div style={{ width: '100%' }}>Trailing PEG</div>
+                </Tooltip>
+            ),
+            dataIndex: 'Trailing PEG',
+            key: 'Trailing PEG',
+            sorter: (a, b) => {
+                const valA = typeof a['Trailing PEG'] === 'number' ? a['Trailing PEG'] : -Infinity;
+                const valB = typeof b['Trailing PEG'] === 'number' ? b['Trailing PEG'] : -Infinity;
+                return valA - valB;
+            },
+            render: (value) => {
+                if (typeof value === 'number') {
+                    return value.toFixed(2);
+                }
+                else {
+                    return 'N/A';
+                }
+            }
+        },
+        {
+            title: (
+                <Tooltip title="Trailing PS 12 months">
+                    <div style={{ width: '100%' }}>Trailing PS</div>
+                </Tooltip>
+            ),
+            dataIndex: 'Trailing PS',
+            key: 'Trailing PS',
+            sorter: (a, b) => a['Trailing PS'] - b['Trailing PS'],
+            render: (value) => {
+                if (typeof value === 'number') {
+                    return value.toFixed(2);
+                }
+                else {
+                    return 'N/A';
+                }
+            }
         },
         {
             title: (
@@ -377,46 +428,6 @@ const App = () => {
                     return value.toFixed(2);
                 }
                 return value;
-            }
-        },
-        {
-            title: (
-                <Tooltip title="Trailing PEG 12 months">
-                    <div style={{ width: '100%' }}>Trailing PEG</div>
-                </Tooltip>
-            ),
-            dataIndex: 'Trailing PEG',
-            key: 'Trailing PEG',
-            sorter: (a, b) => {
-                const valA = typeof a['Trailing PEG'] === 'number' ? a['Trailing PEG'] : -Infinity;
-                const valB = typeof b['Trailing PEG'] === 'number' ? b['Trailing PEG'] : -Infinity;
-                return valA - valB;
-            },
-            render: (value) => {
-                if (typeof value === 'number') {
-                    return value.toFixed(2);
-                }
-                else {
-                    return 'N/A';
-                }
-            }
-        },
-        {
-            title: (
-                <Tooltip title="Trailing PS 12 months">
-                    <div style={{ width: '100%' }}>Trailing PS</div>
-                </Tooltip>
-            ),
-            dataIndex: 'Trailing PS',
-            key: 'Trailing PS',
-            sorter: (a, b) => a['Trailing PS'] - b['Trailing PS'],
-            render: (value) => {
-                if (typeof value === 'number') {
-                    return value.toFixed(2);
-                }
-                else {
-                    return 'N/A';
-                }
             }
         },
         {
