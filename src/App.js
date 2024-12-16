@@ -260,6 +260,7 @@ const App = () => {
             dataIndex: 'VS Average Volume',
             key: 'VS Average Volume',
             sorter: (a, b) => a['VS Average Volume'] - b['VS Average Volume'],
+            defaultSortOrder: 'descend',
             render: (value) => `${parseFloat(value * 100).toFixed(2)}%`
         },
         {
