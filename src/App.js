@@ -333,6 +333,28 @@ const App = () => {
         },
         {
             title: (
+                <Tooltip title="Trailing PE">
+                    <div style={{ width: '100%' }}>Trailing PE</div>
+                </Tooltip>
+            ),
+            dataIndex: 'Quick Ratio',
+            key: 'Quick Ratio',
+            sorter: (a, b) => {
+                const valA = typeof a['Trailing PE'] === 'number' ? a['Trailing PE'] : -Infinity;
+                const valB = typeof b['Trailing PE'] === 'number' ? b['Trailing PE'] : -Infinity;
+                return valA - valB;
+            },
+            render: (value) => {
+                if (typeof value === 'number') {
+                    return value.toFixed(2);
+                }
+                else {
+                    return 'N/A';
+                }
+            }
+        },
+        {
+            title: (
                 <Tooltip title="Trailing PEG 12 months">
                     <div style={{ width: '100%' }}>Trailing PEG</div>
                 </Tooltip>
