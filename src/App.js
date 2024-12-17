@@ -312,7 +312,7 @@ const App = () => {
         {
             title: (
                 <Tooltip title="Price-to-earnings ratio">
-                    <div style={{ width: '100%' }}>PE Ratio</div>
+                    <div style={{ width: '100%' }}>Forward PE</div>
                 </Tooltip>
             ),
             dataIndex: 'PE Ratio',
