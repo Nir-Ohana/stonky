@@ -337,8 +337,8 @@ const App = () => {
                     <div style={{ width: '100%' }}>Trailing PE</div>
                 </Tooltip>
             ),
-            dataIndex: 'Quick Ratio',
-            key: 'Quick Ratio',
+            dataIndex: 'Trailing PE',
+            key: 'Trailing PE',
             sorter: (a, b) => {
                 const valA = typeof a['Trailing PE'] === 'number' ? a['Trailing PE'] : -Infinity;
                 const valB = typeof b['Trailing PE'] === 'number' ? b['Trailing PE'] : -Infinity;
